@@ -1,7 +1,8 @@
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 # Create your models here.
+
 
 class UserManager(BaseUserManager):
     def create_user(self, email, name, password=None):
@@ -33,6 +34,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class User(AbstractBaseUser):
     email = models.EmailField(
         verbose_name="email address",
@@ -45,7 +47,6 @@ class User(AbstractBaseUser):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
     objects = UserManager()
 
     USERNAME_FIELD = "email"
@@ -53,7 +54,7 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.email
-    
+
     def __str__(self) -> str:
         return self.name
 
